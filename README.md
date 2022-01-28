@@ -25,8 +25,10 @@ docker rm node-app -fv
 ## 2. Managing Multiple Containers
 ### Build Image & Run Containers
 Use a YAML file to configure an application’s services. Then, with a single command, create and start all the services from the configuration. 
+- `--build`: force build images before starting containers
 ```bash
-docker-compose up -d
+[Development] docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+[Production] docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 ```
 
 ### Remove Containers
