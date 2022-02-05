@@ -32,8 +32,10 @@ Use a YAML file to configure an application’s services. Then, with a single co
 ```
 
 ### Remove Containers
+`prune` deletes all unused local volumes.
 ```bash
-docker-compose down -v
+docker volume prune
+docker-compose down
 ```
 
 ## 3. Docker Concepts
