@@ -12,12 +12,14 @@ exports.signUp = async (req, res) => {
             password: hashpassword
         });
 
+        req.session.user = newUser;
         res.status(201).json({
             status: 'success',
             data: {
                 user: newUser
             }
         });
+        
     } catch(e) {
         res.status(400).json({
             status: 'fail'
@@ -41,6 +43,7 @@ exports.login = async (req, res) => {
         const isCorrect = await bcrypt.compare(password, user.password);
 
         if (isCorrect) {
+            req.session.user = user;
             res.status(201).json({
                 status: 'success'
             });
@@ -50,7 +53,6 @@ exports.login = async (req, res) => {
                 message: 'Incorrect username or password'
             });
         }
-
 
     } catch(e) {
         console.log(e);

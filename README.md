@@ -44,3 +44,10 @@ Each Dockerfile command is an image layer. Docker caches image layers and rebuil
 
 ### Port Accessibility
 Dockerfile `EXPOSE` allows inter-container communication, `docker run -p` makes the service in the container accessible from anywhere, even outside Docker.
+
+### Running Commands in Containers
+`docker exec` runs a new command in a running container
+```bash
+[Format] docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+[Example] docker exec -it node-docker-redis-1 redis-cli
+```

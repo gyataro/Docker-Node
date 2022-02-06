@@ -1,11 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const redis = require("ioredis");
+
 const { 
     MONGO_USER, 
     MONGO_PASSWORD, 
     MONGO_IP, 
-    MONGO_PORT 
+    MONGO_PORT,
+    REDIS_IP, 
+    REDIS_PORT,
+    SESSION_SECRET
 } = require("./config/config");
+
+let RedisStore = require("connect-redis")(session);
+let redisClient = redis.createClient({
+    host: REDIS_IP,
+    port: REDIS_PORT,
+    legacyMode: true
+});
 
 const postRouter = require("./routes/postRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -21,6 +34,18 @@ mongoose
     })
     .then(() => console.log("Connected to DB!"))
     .catch((e) => console.log(e));
+
+app.use(session({
+    store: new RedisStore({client: redisClient}),
+    secret: SESSION_SECRET,
+    cookie: {
+        secure: false,
+        resave: false,
+        saveUninitialized: false,
+        httpOnly: true,
+        maxAge: 1800000
+    }
+}));
 
 app.use(express.json());
 
