@@ -19,3 +19,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
+
+  nginx:
+    ports:
+      - "3000:80"

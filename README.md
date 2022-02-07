@@ -46,8 +46,14 @@ Each Dockerfile command is an image layer. Docker caches image layers and rebuil
 Dockerfile `EXPOSE` allows inter-container communication, `docker run -p` makes the service in the container accessible from anywhere, even outside Docker.
 
 ### Running Commands in Containers
-`docker exec` runs a new command in a running container
+`docker exec` runs a new command in a running container.
 ```bash
 [Format] docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
 [Example] docker exec -it node-docker-redis-1 redis-cli
+```
+
+### Scaling Instances
+We use nginx to setup a load balancer. Then, we use `docker-compose up --scale` to scale services to a defined number of instances.
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --scale node-app=2
 ```
