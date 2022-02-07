@@ -80,3 +80,10 @@ Add a `.env` file in root, and persist the variable across reboots.
 [Modify startup file] vi .profile
     set -o allexport; source /root/.env; set +o allexport
 ```
+
+### Improved Dockerhub Workflow
+```bash
+docker login
+docker image tag node-docker_node-app gyataro/docker-node
+
+```
