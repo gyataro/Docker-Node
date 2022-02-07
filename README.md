@@ -57,3 +57,26 @@ We use nginx to setup a load balancer. Then, we use `docker-compose up --scale` 
 ```bash
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --scale node-app=2
 ```
+
+## 4. Deploying to Production
+### Get Docker on VM Instance
+After creating a VM instance on AWS/GCP/Azure/DO or any other cloud service provider, we must SSH into the VM and install Docker.
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+```
+Get stable release of Docker Compose.
+```bash
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+### Configure Environment Variables
+Do not add production .env variables to `docker-compose.prod.yml` as this will expose all production API keys and secrets, which is a security risk. Instead, add it manually in the VM instance.
+
+Add a `.env` file in root, and persist the variable across reboots.
+```bash
+[Add variables] vi .env
+[Modify startup file] vi .profile
+    set -o allexport; source /root/.env; set +o allexport
+```
