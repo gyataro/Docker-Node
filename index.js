@@ -54,6 +54,11 @@ app.use(session({
 
 app.use(express.json());
 
+app.get("/api/v1", (req, res) => {
+    res.send("<h1>Backend Test</h1>");
+    console.log("Backend responded, success");
+})
+
 app.use("/api/v1/posts", postRouter);
 app.use("/api/v1/users", userRouter);
 

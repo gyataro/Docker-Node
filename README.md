@@ -107,5 +107,6 @@ Manager Node (Control Plane) <---> Worker Node (Data Plane)
 ```
 ```bash
 docker swarm init
-
+docker stack deploy -c docker-compose.yml -c docker-compose.prod.yml docker-node
+docker stack services docker-node
 ```
